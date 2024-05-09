@@ -1,0 +1,4 @@
+
+
+Average IOU for all bounding boxes: 
+-1.1333845067160382
