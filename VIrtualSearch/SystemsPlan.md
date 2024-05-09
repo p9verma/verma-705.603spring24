@@ -50,7 +50,7 @@ The ETL_Pipeline class is defined in **[data_pipeline](./data_pipeline.py)**. Th
 
 Extract(): This function takes in a parameter called *filename* indicating the .csv file carrying data and extracts into a dataframe. This function returns the dataframe.
 
-Transform(): This function accepts a dataframe and input and processes it to create new features. These features are extracted based on findings from data analysis performed in **[exploratory_data_analysis.ipynb](analysis/exploratory_data_analysis.ipynb)**. The new feature applied to transform the incoming license plate data is chnaging image to grayscale. In exploratory analysis, it was found that license numbers are identified at a higher accuracy from tesseract in our input data when grayscale is used.
+Transform(): This function accepts a dataframe and input and processes it to create new features. These features are extracted based on findings from data analysis performed in **[epxloratory_data_analysis.ipynb](analysis/epxloratory_data_analysis.ipynb)**. The new feature applied to transform the incoming license plate data is chnaging image to grayscale. In exploratory analysis, it was found that license numbers are identified at a higher accuracy from tesseract in our input data when grayscale is used.
 
 This function contains all the processes needed to clean, process, and prepare the data for modeling.
 
