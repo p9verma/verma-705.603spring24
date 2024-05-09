@@ -1,11 +1,10 @@
-# Taxi environment
-A Q-learning implementation for OpenAIs Taxi-v3 environment. The notebook can be used as a tutorial for beginners in Reinforcement Learning.
+# Reinforcement (Q-learning) - Email Case study
+## Module 14
 
-The following sources were used in constructing this notebook:
+*Author: Punita Verma*
 
-[1] OpenAI Gym. Taxi-v3 environment. The OpenAI Gym environment is available under the MIT License.  <br> https://github.com/openai/gym/blob/master/gym/envs/toy_text/taxi.py
-
-[2] LearnDataSci. Reinforcement Q-Learning from Scratch in Python with OpenAI Gym. Taxi-v2 implementation. <br> https://www.learndatasci.com/tutorials/reinforcement-q-learning-scratch-python-openai-gym/
-
-[3] Botforge. Save OpenAI Gym renders as GIFS. Public GitHub Gist. <br>
-https://gist.github.com/botforge/64cbb71780e6208172bbf03cd9293553
+**Contents**
+* Analysis directory: This directory contains the module necessary for data analysis. One of the goals of this case study is to implement best practices of module code development. This is demonstrated in the modules contained in this directory for all steps of the prediction pipeline from input to output.
+* Results directory: This directory contains results from the model trainings. The results are generated using the metrics module and contain useful information that can be used to understand model performance, strengths, and weaknesses. This is an important aspect of the AI system post deployment as monitoring and updating the model require a thorough quantitative assesment of the existing model performance.
+* To see a demonstration on how the pipelines (ETL Pipeline, model pipeline, and metrics pipeline) are run, see [model_performance.ipynb](analysis/model_performance.ipynb)
+* ML microservice: The ml microservice (flask app) defined in [ml_microservice.py](analysis/ml_microserivce.py), runs on a docker image created using the Dockerfile and requirements.txt. This app encapsulate the model's predict() method in order to output a review that goes beyond the traditional 5-star rating system.
