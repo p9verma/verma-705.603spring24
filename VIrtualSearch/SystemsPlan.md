@@ -54,7 +54,7 @@ Transform(): This function accepts a dataframe and input and processes it to cre
 
 This function contains all the processes needed to clean, process, and prepare the data for modeling.
 
-Transform(): This function accepts a dataframe and saves it to a csv file titled *transactions_processed.csv*
+Load(): This function accepts a dataframe and saves it to a csv file titled *transactions_processed.csv*
 
 The Object Detection Dataset class defined in **[dataset.py](./dataset.py)** takes in a dataframe upon instantiation and splits it into a training, testing and validation set using an 80%, 10%, 10% split respectively. The splits are accesible via helper methods in the class: *get_training_dataset()*, *get_testing_dataset()*, and *get_validation_dataset()*.
 
