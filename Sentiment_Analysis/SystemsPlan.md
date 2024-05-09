@@ -56,7 +56,7 @@ This function contains all the processes needed to clean, process, and prepare t
 
 Load(): This function accepts a dataframe and saves it to a csv file titled *reviews_processed.csv*
 
-The Fraud_Dataset class defined in **[dataset.py](./dataset.py)** takes in a datafram upon instantiation and splits it into a training, testing and validation set using an 80%, 10%, 10% split respectively. The splits are accesible via helper methods in the class: *get_training_dataset()*, *get_testing_dataset()*, and *get_validation_dataset()*.
+The Reviews_Dataset class defined in **[dataset.py](./dataset.py)** takes in a datafram upon instantiation and splits it into a training, testing and validation set using an 80%, 10%, 10% split respectively. The splits are accesible via helper methods in the class: *get_training_dataset()*, *get_testing_dataset()*, and *get_validation_dataset()*.
 
 The Metrics class defined in **[metrics.py](metrics.py)** generates a report and outputs metrics for model evaluation given a set of prediction and truth values. 
 
