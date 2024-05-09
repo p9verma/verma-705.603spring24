@@ -28,8 +28,8 @@ The success criteria in this system will be tests performed on labeled data. Som
 
 ### <u>What are our (system) Assumptions?</u>
 - The input data is live and coming in at all times.
-- There objects (license plates) to be detected from images exist on every car.
-- The tessaract model used for licensce plate extraction is trained well and optimally.
+- The objects (license plates) to be detected from images exist on every car.
+- The tessaract software used for licensce plate extraction is trained well and optimally.
  
 ### <u>What are our (system) Requirements?</u>
 - The input data is live and coming in via video stream input.
@@ -60,10 +60,11 @@ The Object Detection Dataset class defined in **[dataset.py](./dataset.py)** tak
 
 The Metrics class defined in **[metrics.py](metrics.py)** generates a report and outputs metrics for model evaluation given a set of prediction and truth values. The metrics used are IoU and mean IoU. (note: I was unable to get mAP working. However, this is another usefule metric as discussed in the success criteria section).
 
+Deployement Strategy: The system is dokerized using **[udp.py](udp.py]**, the given video streaming code. With ffmpeg installed on the user device, a live video stream can be processed. This video should be processed using the ETL_Pipeline and model classes.
 
 ### <u>High-level System Design</u>
 
-At a high level, this system stores data in a csv format, processes and trains a model with it, and predict license detection in real-time. Further down the pipeline, these detections should be used with the Google Tesseract, an optical character recognition engine, to get license plate characters for charging.
+At a high level, this system stores data in a csv format, processes and trains a model with it, and predicts license detection in real-time. Video input is broken down into image frames with a customizable frams-per-second (fps) parameter. This can be integrated in the UI to adjust input video processing based on traffic and weather conditions. From the frames, license plates (as specified in the **[classes.txt](classes.txt)** file) are detected using the given Yolo model. A constraint is the Yolo model is a robust pre-trained model and was not finetuned here. Future work may involve finetuning the last few layers of the pre-trained weights, applying transfer learning principle to customize the model. Further down the pipeline, these detections should be used with the Google Tesseract, an optical character recognition engine, to get license plate characters for charging.
 
 ### <u>Development Workflow</u>
 
