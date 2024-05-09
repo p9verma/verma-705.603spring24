@@ -60,6 +60,7 @@ The Reviews_Dataset class defined in **[dataset.py](./dataset.py)** takes in a d
 
 The Metrics class defined in **[metrics.py](metrics.py)** generates a report and outputs metrics for model evaluation given a set of prediction and truth values. 
 
+Deployement Strategy: The system is dokerized using [ml_microservice.py](analysis/ml_microservice.py). This is a flask app that receives and process input data from requests. This input will be in the format of the  row in the dataset provided. The model class's predict() method will use this data to produce a string output depicting the review's sentiment.
 
 ### <u>High-level System Design</u>
 
