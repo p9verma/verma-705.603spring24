@@ -3,27 +3,26 @@
 
 ### <u>Problem Statement</u>
 
-Fraudulent transactions on credit cards occur when unauthorized purchases are made from a card. These transactions are hard to detect because the attacker assumes the identity of the credit card holder when making the purchase. Fraudulent transactions attack the integrity of the financial institution, the card holder, and the stakeholder providing the goods being purchased. 
+The Department of Transportation (DoT) has identified the need to modernize toll collection on its highways to improve traffic flow, reduce congestion, and eliminate the need for manual toll collection. To achieve this, the DoT is interested in deploying an Automated License Plate Recognition (ALPR) system that can accurately and efficiently recognize license plates from various states at high speeds, day and night, under different weather conditions. The task at hand is to develop a machine learning-based ALPR system. The first step in this task is configuring a system to read in live video stream and identifiy license plates. 
 
 ### <u>Value Proposition</u>
 
-The benefits of creating a system to detect fraudulent transactions will allow policing of fraud, safeguard the identity of cardholder, promote trust in the financial institution, and facilitate smoother economic transactions for all stakeholders.
+The benefits of creating a system to detect license paltes will allow DoT to enforce traffic regulations and promote safety and law.
 
 ## **Why is our solution a viable one?**
 
-An ML solution fits this problem because it is hard to encode in software and algorithmically define. Differences between true and fradulent transactions are subtle and often unclear to the human eye. Patterns in the data that indicate fraud may be convoluted in complex mathematical regression or correlation amongst multiple factors or features. Further, the amount of non-fraudulent transactions greatly outnumbers the amount of fradulent ones. This creates immensely large and unbalanced datasets that can be tedious to analyze without the use of advanced ML methodologies.
-    We can tolerate a small degree of mistakes in this system, as ultimately, most credit card fraud is not life-thratening. However, fraud is a costly problem to all parties involved and most true positives must be detected. 
+An ML solution fits this problem because it is impossible for the human eye to detect license plates at high speed accurately at all times. This task must be automated and tradition non-ML solutions are incapable of the automation. We can tolerate a small degree of mistakes in this system, but ultimately, most license plates must be detected and be correct in order to charge the correct vehicles for tolls and violations.
  
 # REQUIREMENTS (What's)
 ## **SCOPE:**
 
 ### <u>What are our goals?</u>
 
-One of the main goals of this system is to mark transactions on their likelihood of being fraudulent. The model should consider a probability computed from the training-based predictions that will guide the system’s label for the transaction. This is a systematic goal that will help the user make an informed decision on whether the transaction needs to be inspected and refunded. The overall system will require the user to ultimately use some contextual and human inputs to determine whether the transaction is infact fraudulent - i.e. if the transaction is labelled non-fradulent but occurs in a country where the cardholder was never present, it is likely fraudulent. The goal of the model is to guide in this decision making process.
+One of the main goals of this system is to capturing images of moving vehicles at toll booths and accurately recognizing and recording their license plates with high accuracy. The model should consider a probability computed from the training-based predictions that will guide the system’s label for the license plate detection bounding box. This is a systematic goal that will help the system correctly apply tolls. The overall system will not be able to ultimately use some contextual or human inputs in all detetections and thus must be robust.
  
 ### <u>What are the success criteria?</u>
 
-The success criteria in this system will be tests performed on labeled data. Since the system will perform predictions in an unsupervised environment, it is difficult to get error scores. However, some metrics we can use to evaluate the runtime performance of the system are precision, recall, F1-score, and MCC. These metrics go beyond accuracy to measure the performance of a model in an imabalanced dataset.
+The success criteria in this system will be tests performed on labeled data. Some metrics we can use to evaluate the runtime performance of the system are Intersection-over-union (IOU), average IOU, and Mean Average Precision (mAP). These metrics have been proven to be state-of-the-art for image detection. Specifically, IOU is able to calculate the correct area covered by the predicted bounding boxes for each detection. A good IOU score likes around +0.5. In the real world system, the success criteria is a correct detection most all of the times.
  
 ## **REQUIREMENTS:**
 
