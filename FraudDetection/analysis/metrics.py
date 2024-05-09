@@ -6,7 +6,9 @@ from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_sc
 from imblearn.metrics import specificity_score, sensitivity_score
 import numpy as np
 import matplotlib.pyplot as plt
-
+'''
+The Metrics pipeline designs the model metrics. 
+'''
 class Metrics():
     '''
     This function generates a report in a .txt file format in a directory called `results`
@@ -24,7 +26,11 @@ class Metrics():
             f.write("Confusion matrix: \n" + str(confusion_matrix(y_label, y_prediction)))
             f.write("\n\nClassification report: \n" + classification_report(y_label, y_prediction))
             f.write("MCC: " + str(matthews_corrcoef(y_label, y_prediction)))
-        
+    '''
+    This function prints out metrics from the model results and ground truth data.
+    param y_prediction (array): model output
+    param y_label (array): ground truth 
+    ''' 
     def run(self, y_prediction, y_label):
         # Generate Report
         precision, recall, fscore, support = score(y_label, y_prediction)
