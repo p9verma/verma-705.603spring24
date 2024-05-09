@@ -2,17 +2,32 @@ import datetime
 from datetime import date
 import pandas as pd
 from copy import deepcopy
-
+'''
+The ETL pipeline class is used to transform the data using the knowledge discovered in your Exploratory Data Analysis.
+'''
 class ETL_Pipeline:
-        
+    '''
+    The extract function takes 'filename' as a parameter indicating the .csv file carrying data we are looking to extract.
+    Returns: dataframe 
+    '''
     def extract(self, filename):
         df = pd.read_csv(filename)
         return df
-
+    '''
+    This is a helper function to transform the 'dob' feature to 'age_group'. An intermediate step in the transformation is the calcualtion of age, which is aided by this function.
+    '''
     def calculate_age(self, born):
         today = date.today()
         return today.year - born.year - ((today.month, today.day) < (born.month, born.day))
-        
+
+    '''
+    The transform function contains all the processes needed to clean, process, and prepare the data for modeling.
+    Params:
+    df (pandas dataframe): the extracted dataframe from .csv input file
+
+    Returns:
+    df_processed (pandas dataframe): the processed dataframe
+    '''
     def transform(self, df):
         df_processed = deepcopy(df)
         
@@ -73,7 +88,9 @@ class ETL_Pipeline:
         df_processed = pd.get_dummies(df_processed, columns=['age_group', 'Day of week', 'Month'])
         # Remove features that are not pertinent to model training (such as credit_card number. We do not want the model to just learn the credit card numbers of fraudulent transactions. This may cause some data leakage.)
         return df_processed.drop(columns=['lower_bound', 'upper_bound', 'non_fraud_mean', 'non_fraud_std', 'trans_date_trans_time', 'cc_num', 'category', 'amt', 'first', 'last', 'sex', 'street', 'lat', 'long', 'dob', 'trans_num', 'unix_time', 'merchant', 'job', 'city', 'state', 'merch_lat', 'merch_long']).fillna(0) # 
-
+    '''
+    The load function contains the processes to write the pre-processed dataset to a specified .csv file using the pandas 'to_csv()' function,. 
+    '''
     def load(self, df):
         df.to_csv('transactions_processed.csv', index=False)
         return df
