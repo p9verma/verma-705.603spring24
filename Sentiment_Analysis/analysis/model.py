@@ -11,12 +11,28 @@ import nltk
 nltk.download('vader_lexicon')
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
+'''
+This class constructs the Reviews Model and handles the necessary logic to take raw input data, and produce an output.
+'''
 class Reviews_Model():
     
+    '''
+    This method initializes the pre-trained vader sentiment analyzer. 
+    '''
     def __init__(self):
         nltk.download('vader_lexicon')
         self.model = SentimentIntensityAnalyzer()
+   
+    '''
+    The test method tests the model performance on a given dataset using the metrics module. 
     
+    Sentiment analysis cannot have a ground truth in this case. 
+    For that reason, the 'ground truth' is generated using the 'rating' feature in the data. The rationale behind
+    this is that the producer of the review and its sentiment quantified the intended sentiment via the rating number.
+    This is discussed in the SystemsPlan document further.
+
+    Returns an array of predicted sentiment labels.
+    '''
     def test(self, df):
         metric = Metrics()
         y_prediction = []
@@ -37,7 +53,15 @@ class Reviews_Model():
         metric.run(df['sentiment'] , df['rating_cat'])
         metric.generate_report(df['sentiment'] , df['rating_cat'])
         return y_prediction
+     
+    '''
+    The predict method is used to predict sentiment of a given input. 
 
+    Params:
+    input (array): data representing a review via a row from the master reviews dataframe 
+
+    Returns a string output descibing the review's sentiment.
+    '''
     def predict(self, data):
         prediction = self.model.polarity_scores(str(data['text']))
         if prediction['compound'] >= 0.05:
