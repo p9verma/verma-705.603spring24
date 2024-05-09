@@ -11,7 +11,12 @@ import matplotlib.patches
 
 class Metrics:
 
-        
+    '''
+    This function is a predefined helper function that I came accross during my metrics research. 
+    The function is able to take in a ground truth and predicted bounding box and output the IOU, intersection, and union.
+    
+    Reference: https://blog.paperspace.com/mean-average-precision/
+    '''
     def intersection_over_union(self, gt_box, pred_box):
         inter_box_top_left = [max(gt_box[0], pred_box[0]), max(gt_box[1], pred_box[1])]
         inter_box_bottom_right = [min(gt_box[0]+gt_box[2], pred_box[0]+pred_box[2]), min(gt_box[1]+gt_box[3], pred_box[1]+pred_box[3])]
