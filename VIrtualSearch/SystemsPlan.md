@@ -60,7 +60,7 @@ The Object Detection Dataset class defined in **[dataset.py](./dataset.py)** tak
 
 The Metrics class defined in **[metrics.py](metrics.py)** generates a report and outputs metrics for model evaluation given a set of prediction and truth values. The metrics used are IoU and mean IoU. (note: I was unable to get mAP working. However, this is another usefule metric as discussed in the success criteria section).
 
-Deployement Strategy: The system is dokerized using **[udp.py](udp.py]**, the given video streaming code. With ffmpeg installed on the user device, a live video stream can be processed. This video should be processed using the ETL_Pipeline and model classes.
+Deployement Strategy: The system is dokerized using **[udp.py](udp.py)**, the given video streaming code. With ffmpeg installed on the user device, a live video stream can be processed. This video should be processed using the ETL_Pipeline and model classes.
 
 ### <u>High-level System Design</u>
 
