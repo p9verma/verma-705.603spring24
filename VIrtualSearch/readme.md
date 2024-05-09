@@ -1,26 +1,9 @@
-# Welcome to a Readme File
-## Second Welcome
-### Third Welcome
+# Automated License Plate Recognition Project- Case study
+## Module 8
 
-*italic*
+*Author: Punita Verma*
 
-**bold**
-
-* list 1
-* list 2
-
-- list 1
-- list 2
-
-This decribes this particular project and directory level.
-
-
-[GitHub Readme1 Reference](https://github.com/tchapi/markdown-cheatsheet/blob/master/README.md)
-
-[General Readme2 Reference](https://www.mygreatlearning.com/blog/readme-file/#:~:text=When%20you%20create%20a%20repository,be%20easily%20converted%20to%20text)
-
-Bring in local graphic
-![GitHub Logo](./regan.png) 
-
-Bring in remote graphic
-![GitHub Logo](https://upload.wikimedia.org/wikipedia/commons/d/de/Amazon_icon.png) 
+**Contents**
+* Analysis directory: This directory contains the module necessary for data analysis. One of the goals of this case study is to implement best practices of module code development. This is demonstrated in the modules contained in this directory for all steps of the prediction pipeline from input to output.
+* Results directory: This directory contains results from the model trainings. The results are generated using the metrics module and contain useful information that can be used to understand model performance, strengths, and weaknesses. This is an important aspect of the AI system post deployment as monitoring and updating the model require a thorough quantitative assesment of the existing model performance.
+* Dockerized System Architecture: udp.py, Dockerfile, and requirements.txt contain the code to livestream a video via ffmpeg using RTSP/UDP video streaming. The streamed video can be used in sync to feed the model.py and create predictions.
