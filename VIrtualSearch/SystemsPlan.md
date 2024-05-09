@@ -27,22 +27,21 @@ The success criteria in this system will be tests performed on labeled data. Som
 ## **REQUIREMENTS:**
 
 ### <u>What are our (system) Assumptions?</u>
-- The input data is highly imbalanced.
-- There are underlying patterns that can be detected from transaction data to aid the development of a usable ML model.
-- There are enough data point with fraudulent and non-fraudulent transactions to train a model. There is sufficient data.
+- The input data is live and coming in at all times.
+- There objects (license plates) to be detected from images exist on every car.
+- The tessaract model used for licensce plate extraction is trained well and optimally.
  
 ### <u>What are our (system) Requirements?</u>
-- Input credit card transaction data in a csv format.
-- The system must have a reasonable large memory and gpu/cpu operating capability to process complex training methods on large and high-dimensional datasets.
-- Store and secure input data. The data inputted in this system may be highly sensitive and should be protected from breaches or leaks. 
+- The input data is live and coming in via video stream input.
+- The system must have a reasonable large memory and gpu/cpu operating capability to correctly identify licensce lates in near real-time.
+- Input will come in at high speeds, day and night, under different weather conditions. The system must handle various image qualities then.
  
 ## **RISK & UNCERTAINTIES:**
 
 ### <u>What are the possible harms?, What are the causes of mistakes</u>
 
-The possible harms in this system can be emotional and financial damage. If a fraudulent tranasaction is marked as non-fradulent by the model, the cardholder may lose trust in the financial institution using this model. The specific amount, nature, and recognition of the fraud will dictate the degree of the damage caused by the system being inaccurate. 
-
-Some cases of errors or mistakes include the manner in which data is collected for the model. Inconsistencies or discrepancies in collecting, aggregating, reporting, storing, loading, and processing the data may cause discrepancies and error is the feature extraction, data loading, data massaging, and model creating processes.
+The possible harms in this system can be emotional, legal, and financial damage. If a toll is wrongfully charged by the DoT sometimes or often, it can have ramifications on its authority and credibility with the population. The people may lose trust in the public institution. The specific amount of wrongful charges 
+ due to incorrect detections will dictate the degree of the damage caused by the system being inaccurate. Some cases of errors or mistakes include the manner in which data is collected for the model. Lapses in video livestream caused by weather or hardware issues may occur. 
  
 # IMPLEMENTATION (How's)
 ## **DEVELOPMENT:**
@@ -51,30 +50,20 @@ The ETL_Pipeline class is defined in **[data_pipeline](./data_pipeline.py)**. Th
 
 Extract(): This function takes in a parameter called *filename* indicating the .csv file carrying data and extracts into a dataframe. This function returns the dataframe.
 
-Transform(): This function accepts a dataframe and input and processes it to create new features. These features are extracted based on findings from data analysis performed in **[exploratory_data_analysis.ipynb](analysis/exploratory_data_analysis.ipynb)**. The new features added are 
-1. Age group: the age group of the transaction's card holder (based on 'dob' feature, age is calculated using a helper function)
-2. Day of week: the day of the week of transaction date
-3. Month: the month of the transaction date
-4. Hour of day: the hour of day of the transaction time
-5. is_holiday: Did the transaction during the holidays
-6. is_post_holiday: Did the transaction occur after the holidays?
-7. is_summer: Did the transaction occur in the summer?
-8. 2.5_std: is transaction amount within 3 std deviations of category's mean (fraudulent) amount
-9. likely_fraudulent_time: did the transaction occur in hour 22 (time most fraudulent transactions occured)
-10. is_top_job: Does the transaction cardholder have a job type occuring in the top 35 cardholder jobs with most fraudulent transactions
+Transform(): This function accepts a dataframe and input and processes it to create new features. These features are extracted based on findings from data analysis performed in **[exploratory_data_analysis.ipynb](analysis/exploratory_data_analysis.ipynb)**. The new feature applied to transform the incoming license plate data is chnaging image to grayscale. In exploratory analysis, it was found that license numbers are identified at a higher accuracy from tesseract in our input data when grayscale is used.
 
 This function contains all the processes needed to clean, process, and prepare the data for modeling.
 
 Transform(): This function accepts a dataframe and saves it to a csv file titled *transactions_processed.csv*
 
-The Fraud_Dataset class defined in **[dataset.py](./dataset.py)** takes in a datafram upon instantiation and splits it into a training, testing and validation set using an 80%, 10%, 10% split respectively. The splits are accesible via helper methods in the class: *get_training_dataset()*, *get_testing_dataset()*, and *get_validation_dataset()*.
+The Object Detection Dataset class defined in **[dataset.py](./dataset.py)** takes in a dataframe upon instantiation and splits it into a training, testing and validation set using an 80%, 10%, 10% split respectively. The splits are accesible via helper methods in the class: *get_training_dataset()*, *get_testing_dataset()*, and *get_validation_dataset()*.
 
-The Metrics class defined in **[metrics.py](metrics.py)** generates a report and outputs metrics for model evaluation given a set of prediction and truth values. 
+The Metrics class defined in **[metrics.py](metrics.py)** generates a report and outputs metrics for model evaluation given a set of prediction and truth values. The metrics used are IoU and mean IoU. (note: I was unable to get mAP working. However, this is another usefule metric as discussed in the success criteria section).
 
 
 ### <u>High-level System Design</u>
 
-At a high level, this system stores data in a csv format, processes and trains a model with it, and predict fraud in real-time.
+At a high level, this system stores data in a csv format, processes and trains a model with it, and predict license detection in real-time. Further down the pipeline, these detections should be used with the Google Tesseract, an optical character recognition engine, to get license plate characters for charging.
 
 ### <u>Development Workflow</u>
 
