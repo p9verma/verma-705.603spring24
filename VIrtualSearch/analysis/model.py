@@ -6,12 +6,21 @@ import data_pipeline
 from data_pipeline import ETL_Pipeline
 import numpy as np
 
+'''
+This class constructs the model and handles the necessary logic to take raw input data, and produce an output.
+'''
 class Object_Detection_Model():
-    
+    '''
+    This method intializes the class. An weights and config path are used to instantiate the model.
+    Returns an initialized model class instance.
+    '''
     def __init__(self, weights_path, config_path):
         self.model = cv2.dnn.readNet(weights_path, config_path)
         self.classes = ['license_plate']
-
+    '''
+    The test method accepts images and ground truth bounding boxes as inputs to predict and run the metrics
+    pipeline on predictions. The method returns the array of bounding box predictions.
+    '''
     def test(self, images, truth): #no training in this model, requires inputting actual labels for metrics.
         y_prediction = []
         for i, image_path in images.iterrows():
@@ -30,7 +39,10 @@ class Object_Detection_Model():
         metric.generate_report(np.array(y_prediction), np.array(truth))
         return y_prediction
 
-
+    '''
+    The predict method takes in an input image and runs predictions on it in order to detect.
+    It returns a string output: "<class> <bounding_box_parameters>"
+    '''
     def predict(self, input_image):
         layer_name = self.model.getLayerNames()
         output_layer = [layer_name[i - 1] for i in self.model.getUnconnectedOutLayers()]
