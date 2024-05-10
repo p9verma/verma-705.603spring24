@@ -1,36 +1,17 @@
+from flask import Flask, request, jsonify
+from model import Q_learner_Model
 import numpy as np
-import random
+import pandas as pd
 
-age_labels = ['0-20', '21-30', '31-40', '41-50', '51-60', '61-70']
-tenure_labels = ['0-5', '6-10', '11-15', '16-20', '21-25', '26-30', '31-35', '36-40', '31-45']
+app = Flask(__name__)
+model = Q_learner_Model(np.load('q_table_1000_0.6_0.6.npy'), pd.read_csv('users_processed.csv'), pd.read_csv('sent_emails.csv'), pd.read_csv('responded.csv'))
 
-def reinforcement_solution(epsilon, alpha, gamma):
-    number_of_actions = 3  # Number of subject lines
-    q_table = np.zeros((192, 3)) # Initialize q_table
+@app.route('/predict', methods=['POST'])
+def predict():
+    data = request.get_json()
+    result = model.predict(data)
+    result = int(result)
+    return jsonify({'Best action': result})
 
-    for _ in range(1000):
-        # Pick random user and get data
-        index = random.randint(0, len(userbase) - 1) 
-        
-        age_group = userbase.iloc[index]['Age_Group']
-        tenure_group = userbase.iloc[index]['Tenure_Group']
-        gender_code = userbase.iloc[index]['Gender_code']
-        type_code = userbase.iloc[index]['Type_code']
-
-        # Get specific state's index in table
-        state = (tenure_labels.index(tenure_group) * 24 + age_labels.index(age_group) * 4 + gender_code * 2 + type_code)
-        # explore v exploit 
-        if random.uniform(0, 1) < epsilon:
-            action = random.randint(0, 2)  #Explore
-        else:
-            action = np.argmax(q_table[state])  #Exploit
-            
-        # Determine reward
-        if sent_emails.iloc[index]['SubjectLine_ID'] in responded['Responded_Date'].values:
-            reward = 10
-        else:
-            reward = -10
-            
-        # Update q-table
-        q_table[state, action] += alpha * (reward - q_table[state, action])
-    return q_table
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0', port=5001)
