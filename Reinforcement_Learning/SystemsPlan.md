@@ -62,7 +62,7 @@ Load(): This function accepts a dataframe and saves it to a csv file titled *ema
 
 The Email Dataset class defined in **[dataset.py](./dataset.py)** takes in a dataframe upon instantiation and splits it into a training, testing and validation set using an 80%, 10%, 10% split respectively. The splits are accesible via helper methods in the class: *get_training_dataset()*, *get_testing_dataset()*, and *get_validation_dataset()*.
 
-The Metrics class defined in **[metrics.py](metrics.py)** generates a report and outputs metrics for model evaluation given a set of prediction and truth values. The metrics used are response rate.
+The Metrics class defined in **[metrics.py](metrics.py)** generates a report and outputs metrics for model evaluation given a set of prediction and truth values. The metrics used are Precision, recall, and F1 score. The predictions and truth data are used for these metrics. We can compare the subject line ID when response was a success for a customer id in the labelled dataset with the subject line ID the q-table predicts will be the best course of action. Running these metrics will allow us to wholistically comapre each user type's best action and output metrics.
 
 Deployement Strategy: The system is dokerized using **[ml_microservice.py](analysis/ml_microservice.py)**, the given video streaming code. Using this flask app, given an input state, the pretrained model (the q-table) output the best action to take (the best subject line to send).
 
